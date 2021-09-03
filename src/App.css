@@ -1,12 +1,62 @@
-.App {
-  text-align: center;
+html,body,div,a,button,p,dl,dt,dd{
+  margin:0; padding:0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.info_frame{
+  margin:100px auto;
+  max-width:360px;
 }
-
+.info_frame .frame_head{
+  border-top:1px solid #E2E2E2;
+  border-bottom:1px solid #E2E2E2;
+  background:#F8F8F8;
+  padding:15px 10px;
+}
+.info_frame .frame_body{
+  padding:10px 0;
+  border-bottom:1px solid #ccc;
+}
+.frame_body dl{
+  display:flex;
+  padding:5px 80px 5px 10px;
+  box-sizing: border-box;
+  font-size:14px;
+  align-items: center;
+  justify-content: space-between;
+}
+.frame_body dt{
+  width:70%;
+}
+.frame_body dd{
+  position:relative;
+  max-width:50%;
+  align-items: center;
+}
+.frame_body dd span{
+  display:flex;
+  box-sizing: border-box;
+}
+.frame_body dd span:first-child{
+  position:relative;
+  margin-right:30px;
+  padding-right:8px;
+}
+.frame_body dd span .unit{
+  position:absolute;
+  font-weight:400;
+  left:100%;
+  top:0;
+}
+.frame_body dd span + span{
+  position:absolute;
+  left:100%;
+  top:0;
+  padding-left:8px;
+  border-left:1px solid #e8e8e8;
+  text-align:left;
+}
+.frame_body dd span:first-child{
+  text-align:right
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
