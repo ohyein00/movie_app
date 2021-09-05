@@ -1,36 +1,46 @@
 import logo from './logo.svg';
 import React from "react"
 import './App.css';
+import axios from "axios"
 import PropTypes from "prop-types"
-class App extends React.Component {
-    state={
-        count:0
-    }
-    add = ()=>{
+import Movies from "./Movies.js"
 
-        this.setState(current =>({count:current.count +1}))
+class App extends React.Component {
+    state = {
+        isLoading: true,
+        movies: []
     }
-    minus = ()=>{
-         this.state.count --
-        console.log(this.state.count)
+    getMovies = async() => {
+        console.log('yet')
+        const {
+            data:{
+                data:{movies}
+            }
+        } = await axios.get("https://yts-proxy.now.sh/list_movies.json?sort_by=rating")
+        this.setState({movies,isLoading:false})
     }
+
     componentDidMount() {
-        console.log("component rendered")
-    }//렌더를 처음 마친후
+        console.log('didMount')
+        this.getMovies()
+    }
     componentDidUpdate(){
-        console.log("component Update")
-    }//렌더 처음 마친 후 업데이트될때
-    componentWillUnmount(){
-        console.log("GoodBye")
-    }//다른 페이지로 갈때 마운트가 죽으면서 삭제되는 컴포넌트의 행동
+        console.log('update')
+    }
+
     render() {
-        console.log("rendering")
-        return(
-        <div>
-            <h1>count {this.state.count}</h1>
-            <button onClick={this.add}>Add</button>
-            <button onClick={this.minus}>Minus</button>
-        </div>
+        const {isLoading, movies} = this.state
+        return (
+            <section class="container">
+                <div>
+                    {this.state.isLoading ? (<p>Loading...</p>): movies.map(movie=>{
+                        console.log(movie)
+                        return <Movies key={movie.id} id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} poster={movie.medium_cover_image}/>
+                        }
+                    )}
+                </div>
+
+            </section>
         )
     }
 }
