@@ -1,58 +1,40 @@
 import logo from './logo.svg';
+import React from "react"
 import './App.css';
 import PropTypes from "prop-types"
+class App extends React.Component {
+    state={
+        count:0
+    }
+    add = ()=>{
 
-const fruits = [
-    {
-        name: 'banana',
-        taste: 'sweet',
-        rating: 5,
-    },
-    {
-        name: 'orange',
-        taste: 'sweet and sour',
-        rating: 4,
-    },
-    {
-        name: 'strawberry',
-        taste: 'sweet',
-        rating: 2,
-    },
-    {
-        name: 'lemon',
-        taste: 'sour',
-    },
-]
-function Food({name, taste, rating = 0}) {
-
-    return (
+        this.setState(current =>({count:current.count +1}))
+    }
+    minus = ()=>{
+         this.state.count --
+        console.log(this.state.count)
+    }
+    componentDidMount() {
+        console.log("component rendered")
+    }//렌더를 처음 마친후
+    componentDidUpdate(){
+        console.log("component Update")
+    }//렌더 처음 마친 후 업데이트될때
+    componentWillUnmount(){
+        console.log("GoodBye")
+    }//다른 페이지로 갈때 마운트가 죽으면서 삭제되는 컴포넌트의 행동
+    render() {
+        console.log("rendering")
+        return(
         <div>
-            <h1>rating : {rating}</h1>
-            <h2>i like {name} that taste is {taste} </h2>
+            <h1>count {this.state.count}</h1>
+            <button onClick={this.add}>Add</button>
+            <button onClick={this.minus}>Minus</button>
         </div>
-    )
+        )
+    }
 }
 
-Food.propTypes = {
-    name : PropTypes.string.isRequired,
-    taste : PropTypes.string.isRequired,
-    rating : PropTypes.number,
-} //리터럴 체크 외에 instanceof, arrayOf, oneOf, shape .. 등등 다양한걸 체크할 수 있음
-
-function renderFruit(fruit) {
-    return <Food name={fruit.name} taste={fruit.taste}/>
-} // app 안에 map(renderFruit)로 사용할 수 있음
-
-function App() {
-    return (
-        <div className="App">
-            {/*{fruits.map(renderFruit)}*/}
-            {fruits.map(fruit => (
-                <Food key={fruit.name} name={fruit.name} taste={fruit.taste} rating={fruit.rating}/>
-            ))}
-        </div>
-    );
-}
 
 export default App;
 
